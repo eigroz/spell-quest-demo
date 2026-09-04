@@ -82,10 +82,18 @@
           <div class="stats-grid"><div><small>Attempts</small><b id="pAttempts">—</b></div><div><small>First-time accuracy</small><b id="pAccuracy">—</b></div><div><small>Words mastered</small><b id="pMastered">—</b></div><div><small>Stars earned</small><b id="pStars">—</b></div></div>
           <div class="dashboard-grid"><div class="panel"><h3>Word confidence</h3><div id="wordResults" class="word-results"></div></div><div class="panel"><h3>Patterns to practise</h3><div id="patterns"></div><p class="parent-tip">Try saying the word, covering it, writing it, then checking it together.</p></div></div>
         </div>
-        <div class="panel custom-list"><div><h3>Weekly school spellings</h3><p>Add 5–15 words, separated by commas or new lines. They’ll be used in the next quest.</p></div><textarea id="customWords" rows="4" placeholder="Example: treasure, special, caught, library, bicycle"></textarea><div class="custom-actions"><button id="saveWords" class="primary">Save weekly list</button><button id="clearWords" class="quiet">Use built-in words</button><span id="saveStatus" aria-live="polite"></span></div></div>
+        <div class="panel planner">
+          <div class="planner-head"><div><h3>10-week spelling plan</h3><p>Build each week yourself, import a school spreadsheet, or let Spell Quest choose from its word bank.</p></div><div class="week-control"><label for="activeWeek">Current week</label><select id="activeWeek"></select></div></div>
+          <div class="planner-grid"><div><label class="field-label" for="customWords">Words for selected week</label><textarea id="customWords" rows="5" placeholder="Example: treasure, special, caught, library, bicycle"></textarea><div class="custom-actions"><button id="saveWords" class="primary">Save this week</button><button id="clearWords" class="quiet">Clear week</button></div></div><div><label class="field-label">Import Excel or CSV</label><label id="dropZone" class="drop-zone" for="fileInput"><span>📊</span><b>Drop a spreadsheet here</b><small>or tap to choose .xlsx, .xls or .csv</small></label><input id="fileInput" type="file" accept=".xlsx,.xls,.csv" hidden></div></div>
+          <div class="bank-row"><div><b>Smart word bank</b><small id="bankSummary">Built-in Year 3/4 words ready</small></div><button id="randomWeek" class="secondary">Randomise this week</button><button id="randomPlan" class="secondary">Create 10-week plan</button></div>
+          <div id="weekPreview" class="week-preview"></div>
+          <div class="custom-actions"><button id="nextWeek" class="primary">Move to next week →</button><span id="saveStatus" aria-live="polite"></span></div>
+          <p class="privacy-note">🔒 Spreadsheet contents, plans and word history stay in this browser. Randomised words are not repeated for at least four weeks.</p>
+        </div>
       </div>
     </section>
   </main>
+  <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
