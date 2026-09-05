@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#2d195f">
   <title>Spell Quest — Enchanted Forest</title>
-  <link rel="stylesheet" href="styles.css?v=3">
+  <link rel="stylesheet" href="styles.css?v=5">
 </head>
 <body>
   <div class="sparkles" aria-hidden="true"></div>
@@ -19,10 +19,11 @@
     <section id="homeScreen" class="screen active">
       <div class="hero">
         <div class="hero-copy">
-          <span class="eyebrow">WORLD 1</span>
+          <span id="homeQuestLabel" class="eyebrow">WORLD 1 · QUEST 1 OF 30</span>
           <h1>The Enchanted<br><em>Wordwood</em></h1>
           <p>Ten magical words are hiding in the forest. Spell them to light the lanterns and wake the friendly dragon!</p>
-          <button id="startBtn" class="primary big">Begin today’s quest <span>→</span></button>
+          <button id="startBtn" class="primary big">Begin Quest 1 <span>→</span></button>
+          <button id="mapBtn" class="secondary map-btn">View the 30-quest map</button>
           <p class="tiny">About 10 minutes · Progress saves on this device</p>
         </div>
         <div class="world-art" aria-label="A friendly dragon in an enchanted forest">
@@ -34,6 +35,15 @@
       <div class="quest-card">
         <div><span class="map-icon">🗺️</span><div><b>Today’s adventure</b><small>Hear, spot and build brilliant words</small></div></div>
         <div class="reward-preview"><span>Reward</span><b>🎒 Explorer’s Pack</b></div>
+      </div>
+    </section>
+
+    <section id="mapScreen" class="screen">
+      <div class="map-wrap">
+        <button class="quiet back-home" data-nav="home">‹ Back to the Wordwood</button>
+        <div class="map-heading"><div><span class="eyebrow">YEAR 3–4 PATHWAY</span><h2>Thirty spelling quests</h2><p>Six worlds build from sound patterns to independent spelling mastery.</p></div><div class="map-key"><span>● Ready</span><span>✓ Complete</span><span>🔒 Locked</span></div></div>
+        <div id="questWorlds" class="quest-worlds"></div>
+        <div class="panel mastery-note"><b>How progress works</b><p>A child moves forward after showing secure understanding—not perfection. Difficult words continue to appear in review quests until recalled confidently on a later day.</p></div>
       </div>
     </section>
 
@@ -94,7 +104,7 @@
     </section>
   </main>
   <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
-  <script src="app.js?v=3"></script>
+  <script src="app.js?v=5"></script>
 </body>
 </html>
 
