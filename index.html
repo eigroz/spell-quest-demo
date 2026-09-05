@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#2d195f">
   <title>Spell Quest — Enchanted Forest</title>
-  <link rel="stylesheet" href="styles.css?v=5">
+  <link rel="stylesheet" href="styles.css?v=7">
 </head>
 <body>
   <div class="sparkles" aria-hidden="true"></div>
@@ -36,20 +36,23 @@
         <div><span class="map-icon">🗺️</span><div><b>Today’s adventure</b><small>Hear, spot and build brilliant words</small></div></div>
         <div class="reward-preview"><span>Reward</span><b>🎒 Explorer’s Pack</b></div>
       </div>
+      <div id="weeklyHomeCard" class="weekly-home-card" hidden>
+        <div class="weekly-orb">✨</div><div><span class="eyebrow">WEEKLY WORD SIDEQUEST</span><h3 id="weeklyHomeTitle">School words are ready!</h3><p id="weeklyHomeWords"></p></div><button id="weeklyHomeStart" class="primary">Play sidequest →</button>
+      </div>
     </section>
 
     <section id="mapScreen" class="screen">
       <div class="map-wrap">
         <button class="quiet back-home" data-nav="home">‹ Back to the Wordwood</button>
         <div class="map-heading"><div><span class="eyebrow">YEAR 3–4 PATHWAY</span><h2>Thirty spelling quests</h2><p>Six worlds build from sound patterns to independent spelling mastery.</p></div><div class="map-key"><span>● Ready</span><span>✓ Complete</span><span>🔒 Locked</span></div></div>
-        <div id="questWorlds" class="quest-worlds"></div>
+        <div class="map-board"><div id="weeklyMapCard" class="weekly-map-card" hidden><span>✨</span><div><small>BONUS PATH</small><b>Weekly Word Sidequest</b><em id="weeklyMapWords"></em></div><button id="weeklyMapStart" class="primary">Play →</button></div><div id="questWorlds" class="quest-worlds"></div></div>
         <div class="panel mastery-note"><b>How progress works</b><p>A child moves forward after showing secure understanding—not perfection. Difficult words continue to appear in review quests until recalled confidently on a later day.</p></div>
       </div>
     </section>
 
     <section id="gameScreen" class="screen">
       <div class="game-shell">
-        <div class="progress-head"><button id="exitBtn" class="quiet">‹ Map</button><span id="roundLabel">Quest 1 of 10</span><span id="xpLabel">0 XP</span></div>
+        <div class="progress-head"><button id="exitBtn" class="quiet">‹ Leave quest</button><span id="roundLabel">Quest 1 of 10</span><span id="xpLabel">0 XP</span></div>
         <div class="progress"><i id="progressBar"></i></div>
         <article class="challenge-card">
           <div id="modeBadge" class="mode-badge">🔊 Hear & Spell</div>
@@ -75,10 +78,10 @@
     <section id="resultsScreen" class="screen">
       <div class="results-wrap">
         <div class="celebrate">✦ <span>🏆</span> ✦</div>
-        <span class="eyebrow">QUEST COMPLETE</span><h2>You lit up the Wordwood!</h2>
+        <span id="resultEyebrow" class="eyebrow">QUEST COMPLETE</span><h2 id="resultTitle">You lit up the Wordwood!</h2>
         <p id="resultMessage">Brilliant effort — every try made your spelling magic stronger.</p>
         <div class="score-row"><div><b id="resultStars">0</b><span>Stars</span></div><div><b id="resultCoins">0</b><span>Coins</span></div><div><b id="resultWords">0/10</b><span>First try</span></div></div>
-        <div class="unlock"><span>🎒</span><div><small>NEW REWARD</small><b>Explorer’s Pack unlocked!</b></div></div>
+        <div id="resultUnlock" class="unlock"><span>🎒</span><div><small>NEW REWARD</small><b>Explorer’s Pack unlocked!</b></div></div>
         <div class="result-actions"><button id="playAgain" class="primary">Play another quest</button><button class="secondary" data-nav="parent">See grown-up results</button></div>
       </div>
     </section>
@@ -92,19 +95,16 @@
           <div class="stats-grid"><div><small>Attempts</small><b id="pAttempts">—</b></div><div><small>First-time accuracy</small><b id="pAccuracy">—</b></div><div><small>Words mastered</small><b id="pMastered">—</b></div><div><small>Stars earned</small><b id="pStars">—</b></div></div>
           <div class="dashboard-grid"><div class="panel"><h3>Word confidence</h3><div id="wordResults" class="word-results"></div></div><div class="panel"><h3>Patterns to practise</h3><div id="patterns"></div><p class="parent-tip">Try saying the word, covering it, writing it, then checking it together.</p></div></div>
         </div>
-        <div class="panel planner">
-          <div class="planner-head"><div><h3>10-week spelling plan</h3><p>Build each week yourself, import a school spreadsheet, or let Spell Quest choose from its word bank.</p></div><div class="week-control"><label for="activeWeek">Current week</label><select id="activeWeek"></select></div></div>
-          <div class="planner-grid"><div><label class="field-label" for="customWords">Words for selected week</label><textarea id="customWords" rows="5" placeholder="Example: treasure, special, caught, library, bicycle"></textarea><div class="custom-actions"><button id="saveWords" class="primary">Save this week</button><button id="clearWords" class="quiet">Clear week</button></div></div><div><label class="field-label">Import Excel or CSV</label><label id="dropZone" class="drop-zone" for="fileInput"><span>📊</span><b>Drop a spreadsheet here</b><small>or tap to choose .xlsx, .xls or .csv</small></label><input id="fileInput" type="file" accept=".xlsx,.xls,.csv" hidden></div></div>
-          <div class="bank-row"><div><b>Smart word bank</b><small id="bankSummary">Built-in Year 3/4 words ready</small></div><button id="randomWeek" class="secondary">Randomise this week</button><button id="randomPlan" class="secondary">Create 10-week plan</button></div>
-          <div id="weekPreview" class="week-preview"></div>
-          <div class="custom-actions"><button id="nextWeek" class="primary">Move to next week →</button><span id="saveStatus" aria-live="polite"></span></div>
-          <p class="privacy-note">🔒 Spreadsheet contents, plans and word history stay in this browser. Randomised words are not repeated for at least four weeks.</p>
+        <div class="panel planner weekly-editor">
+          <div class="planner-head"><div><span class="eyebrow">WEEKLY WORD SIDEQUEST</span><h3>This week’s school words</h3><p>Add the words being taught at school. They create a separate bonus adventure and never replace the carefully sequenced main quests.</p></div><div id="weeklyReadyBadge" class="weekly-ready-badge">No list yet</div></div>
+          <div class="planner-grid"><div><label class="field-label" for="customWords">Type or paste words</label><textarea id="customWords" rows="6" placeholder="Example: treasure, special, caught, library, bicycle"></textarea><p class="field-help">Separate words with commas or put one word on each line. Add 3–20 words; longer lists rotate through 10-word sessions.</p><div class="custom-actions"><button id="saveWords" class="primary">Save weekly words</button><button id="clearWords" class="quiet">Clear list</button><span id="saveStatus" aria-live="polite"></span></div></div><div><label class="field-label">Or import Excel or CSV</label><label id="dropZone" class="drop-zone" for="fileInput"><span>📊</span><b>Drop a school list here</b><small>or tap to choose .xlsx, .xls or .csv</small></label><input id="fileInput" type="file" accept=".xlsx,.xls,.csv" hidden><div id="weeklyPreview" class="weekly-preview"></div></div></div>
+          <div class="sidequest-explainer"><span>🗺️</span><div><b>What happens next?</b><p>A glowing sidequest appears on the adventure and map screens. It uses these exact words in Hear &amp; Spell, Missing Letters, Word Smash and the boss challenge.</p></div><button id="parentSidequestStart" class="secondary" hidden>Play weekly sidequest →</button></div>
+          <p class="privacy-note">🔒 The list and results stay in this browser. You can replace the list whenever the school words change.</p>
         </div>
       </div>
     </section>
   </main>
   <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
-  <script src="app.js?v=5"></script>
+  <script src="app.js?v=7"></script>
 </body>
 </html>
-
